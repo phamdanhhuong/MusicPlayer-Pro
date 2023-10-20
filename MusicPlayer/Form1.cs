@@ -153,24 +153,34 @@ namespace MusicPlayer
                 {
                     pos= listBox.SelectedIndex;
                     play(musicFav, listBox.SelectedIndex);
-                    btnAddFav.IconChar = FontAwesome.Sharp.IconChar.HeartCircleCheck;
                 }
                 else
                 {
                     pos = listBox.SelectedIndex;
                     play(musicCur, listBox.SelectedIndex);
-                    if (musicCur[listBox.SelectedIndex].Fav)
-                    {
-                        btnAddFav.IconChar = FontAwesome.Sharp.IconChar.HeartCircleCheck;
-                    }
-                    else
-                    {
-                        btnAddFav.IconChar = FontAwesome.Sharp.IconChar.Heart;
-                    }
                 }
+                update();
             }
         }
 
+        private void update()
+        {
+            if (isFav == true)
+            {
+                btnAddFav.IconChar = FontAwesome.Sharp.IconChar.HeartCircleCheck;
+            }
+            else
+            {
+                if (musicCur[pos].Fav)
+                {
+                    btnAddFav.IconChar = FontAwesome.Sharp.IconChar.HeartCircleCheck;
+                }
+                else
+                {
+                    btnAddFav.IconChar = FontAwesome.Sharp.IconChar.Heart;
+                }
+            }
+        }
         private void btnPre_Click(object sender, EventArgs e)
         {
             if (isFav == true)
@@ -189,6 +199,7 @@ namespace MusicPlayer
                     pos--;
                 play(musicCur, pos);
             }
+            update();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -209,6 +220,7 @@ namespace MusicPlayer
                     pos++;
                 play(musicCur, pos);
             }
+            update();
         }
     }
 }
