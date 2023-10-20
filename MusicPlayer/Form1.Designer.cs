@@ -42,8 +42,8 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btnPlay = new FontAwesome.Sharp.IconButton();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.iconButton2 = new FontAwesome.Sharp.IconButton();
-            this.iconButton5 = new FontAwesome.Sharp.IconButton();
+            this.btnPre = new FontAwesome.Sharp.IconButton();
+            this.btnNext = new FontAwesome.Sharp.IconButton();
             this.btnFavList = new FontAwesome.Sharp.IconButton();
             this.listBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -216,8 +216,8 @@
             // 
             this.panel5.Controls.Add(this.btnAddFav);
             this.panel5.Controls.Add(this.label1);
-            this.panel5.Controls.Add(this.iconButton5);
-            this.panel5.Controls.Add(this.iconButton2);
+            this.panel5.Controls.Add(this.btnNext);
+            this.panel5.Controls.Add(this.btnPre);
             this.panel5.Controls.Add(this.btnPlay);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel5.Location = new System.Drawing.Point(0, 532);
@@ -225,31 +225,33 @@
             this.panel5.Size = new System.Drawing.Size(901, 74);
             this.panel5.TabIndex = 2;
             // 
-            // iconButton2
+            // btnPre
             // 
-            this.iconButton2.FlatAppearance.BorderSize = 0;
-            this.iconButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton2.IconChar = FontAwesome.Sharp.IconChar.Backward;
-            this.iconButton2.IconColor = System.Drawing.Color.GreenYellow;
-            this.iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton2.Location = new System.Drawing.Point(370, 29);
-            this.iconButton2.Name = "iconButton2";
-            this.iconButton2.Size = new System.Drawing.Size(39, 37);
-            this.iconButton2.TabIndex = 2;
-            this.iconButton2.UseVisualStyleBackColor = true;
+            this.btnPre.FlatAppearance.BorderSize = 0;
+            this.btnPre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPre.IconChar = FontAwesome.Sharp.IconChar.Backward;
+            this.btnPre.IconColor = System.Drawing.Color.GreenYellow;
+            this.btnPre.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnPre.Location = new System.Drawing.Point(370, 29);
+            this.btnPre.Name = "btnPre";
+            this.btnPre.Size = new System.Drawing.Size(39, 37);
+            this.btnPre.TabIndex = 2;
+            this.btnPre.UseVisualStyleBackColor = true;
+            this.btnPre.Click += new System.EventHandler(this.btnPre_Click);
             // 
-            // iconButton5
+            // btnNext
             // 
-            this.iconButton5.FlatAppearance.BorderSize = 0;
-            this.iconButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton5.IconChar = FontAwesome.Sharp.IconChar.Forward;
-            this.iconButton5.IconColor = System.Drawing.Color.GreenYellow;
-            this.iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton5.Location = new System.Drawing.Point(460, 29);
-            this.iconButton5.Name = "iconButton5";
-            this.iconButton5.Size = new System.Drawing.Size(36, 37);
-            this.iconButton5.TabIndex = 3;
-            this.iconButton5.UseVisualStyleBackColor = true;
+            this.btnNext.FlatAppearance.BorderSize = 0;
+            this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNext.IconChar = FontAwesome.Sharp.IconChar.Forward;
+            this.btnNext.IconColor = System.Drawing.Color.GreenYellow;
+            this.btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnNext.Location = new System.Drawing.Point(460, 29);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(36, 37);
+            this.btnNext.TabIndex = 3;
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnFavList
             // 
@@ -349,8 +351,8 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private FontAwesome.Sharp.IconButton btnPlay;
         private System.Windows.Forms.Panel panel5;
-        private FontAwesome.Sharp.IconButton iconButton5;
-        private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton btnNext;
+        private FontAwesome.Sharp.IconButton btnPre;
         private FontAwesome.Sharp.IconButton btnFavList;
         private System.Windows.Forms.ListBox listBox;
         private FontAwesome.Sharp.IconButton btnAddFav;

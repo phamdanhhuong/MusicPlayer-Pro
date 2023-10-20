@@ -21,7 +21,7 @@ namespace MusicPlayer
         }
         List<music> musicCur = new List<music>();
         List<music> musicFav = new List<music>();
-        bool isFav;
+        bool isFav=false;
         int pos = 0;
         private void Hide()
         {
@@ -80,9 +80,21 @@ namespace MusicPlayer
                for(int i=0; i < openFileDialog1.FileNames.Length; i++)
                 {
                     temp = new music(openFileDialog1.SafeFileNames[i], openFileDialog1.FileNames[i]);
-                    musicCur.Add(temp);
+                    if (checkVar(musicFav, temp)==true)
+                    {
+                        musicCur.Add(temp);
+                    }
                 }
             }
+        }
+        private bool checkVar(List<music> a,music item)
+        {
+            foreach (music m in a)
+            {
+                if(item.Path==m.Path)
+                    return false;
+            }
+            return true;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
@@ -156,6 +168,46 @@ namespace MusicPlayer
                         btnAddFav.IconChar = FontAwesome.Sharp.IconChar.Heart;
                     }
                 }
+            }
+        }
+
+        private void btnPre_Click(object sender, EventArgs e)
+        {
+            if (isFav == true)
+            {
+                if (pos == 0)
+                    pos = musicFav.Count - 1;
+                else if(pos>0)
+                    pos--;
+                play(musicFav, pos);
+            }
+            else if(isFav == false)
+            {
+                if (pos == 0)
+                    pos = musicCur.Count - 1;
+                else if (pos > 0)
+                    pos--;
+                play(musicCur, pos);
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (isFav == true)
+            {
+                if (pos == musicFav.Count - 1)
+                    pos = 0;
+                else 
+                    pos++;
+                play(musicFav, pos);
+            }
+            else if (isFav == false)
+            {
+                if (pos == musicCur.Count - 1)
+                    pos = 0;
+                else
+                    pos++;
+                play(musicCur, pos);
             }
         }
     }
