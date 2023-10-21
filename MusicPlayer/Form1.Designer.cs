@@ -40,6 +40,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.listBox = new System.Windows.Forms.ListBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
@@ -51,7 +52,6 @@
             this.btnPlay = new FontAwesome.Sharp.IconButton();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
@@ -196,6 +196,7 @@
             this.iconPictureBox1.Size = new System.Drawing.Size(71, 76);
             this.iconPictureBox1.TabIndex = 0;
             this.iconPictureBox1.TabStop = false;
+            this.iconPictureBox1.Click += new System.EventHandler(this.iconPictureBox1_Click);
             // 
             // panel4
             // 
@@ -209,6 +210,13 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(901, 606);
             this.panel4.TabIndex = 2;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(0, 522);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(898, 10);
+            this.progressBar1.TabIndex = 9;
             // 
             // listBox
             // 
@@ -342,13 +350,6 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "\"Mp3 files|*mp3|Mp4 files|*.mp4|All files|*.*\"";
             this.openFileDialog1.Multiselect = true;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(0, 522);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(898, 10);
-            this.progressBar1.TabIndex = 9;
             // 
             // timer1
             // 

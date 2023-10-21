@@ -299,5 +299,11 @@ namespace MusicPlayer
             next();
             timer2.Stop();
         }
+
+        private void iconPictureBox1_Click(object sender, EventArgs e)
+        {
+            axWindowsMediaPlayer1.Show();
+            listBox.Hide();
+        }
     }
 }
