@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,6 +19,7 @@ namespace MusicPlayer
             Hide();
             axWindowsMediaPlayer1.Hide();
             listBox.Hide();
+            axWindowsMediaPlayer1.settings.volume = 0;
         }
         List<music> musicCur = new List<music>();
         List<music> musicFav = new List<music>();
@@ -65,8 +67,8 @@ namespace MusicPlayer
             if (a != null)
             {
                 btnPlay.IconChar = FontAwesome.Sharp.IconChar.Pause;
-                axWindowsMediaPlayer1.URL = a[vt].Path;
                 axWindowsMediaPlayer1.Show();
+                axWindowsMediaPlayer1.URL = a[vt].Path;
                 listBox.Hide();
                 label1.Text ="Music's name "+ a[vt].Name;
             }
@@ -99,9 +101,29 @@ namespace MusicPlayer
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            if(musicCur.Count > 0)
+            if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
             {
-                play(musicCur, pos);
+                axWindowsMediaPlayer1.Ctlcontrols.pause();
+                btnPlay.IconChar = FontAwesome.Sharp.IconChar.Play;
+            }
+            else if(axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPaused)
+            {
+                try
+                {
+                    axWindowsMediaPlayer1.Ctlcontrols.play();
+                }
+                catch
+                {
+                    if (isFav == true)
+                    {
+                        play(musicFav, pos);
+                    }
+                    else if (isFav == false)
+                    {
+                        play(musicCur, pos);
+                    }
+                }
+                btnPlay.IconChar = FontAwesome.Sharp.IconChar.Pause;
             }
         }
 
@@ -183,15 +205,19 @@ namespace MusicPlayer
         }
         private void btnPre_Click(object sender, EventArgs e)
         {
+            pre();
+        }
+        private void pre()
+        {
             if (isFav == true)
             {
                 if (pos == 0)
                     pos = musicFav.Count - 1;
-                else if(pos>0)
+                else if (pos > 0)
                     pos--;
                 play(musicFav, pos);
             }
-            else if(isFav == false)
+            else if (isFav == false)
             {
                 if (pos == 0)
                     pos = musicCur.Count - 1;
@@ -201,14 +227,17 @@ namespace MusicPlayer
             }
             update();
         }
-
         private void btnNext_Click(object sender, EventArgs e)
+        {
+            next();
+        }
+        private void next()
         {
             if (isFav == true)
             {
                 if (pos == musicFav.Count - 1)
                     pos = 0;
-                else 
+                else
                     pos++;
                 play(musicFav, pos);
             }
@@ -221,6 +250,54 @@ namespace MusicPlayer
                 play(musicCur, pos);
             }
             update();
+        }
+        private void axWindowsMediaPlayer1_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+        {
+            if(axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            {
+                progressBar1.Maximum = (int)axWindowsMediaPlayer1.Ctlcontrols.currentItem.duration;
+                timer1.Start();
+            }
+            else if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPaused)
+            {
+                timer1.Stop();
+            }
+            else if(axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsStopped)
+            {
+                timer1.Stop();
+                timer2.Start();
+                progressBar1.Value = 0;
+            }
+        }
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            axWindowsMediaPlayer1.settings.volume = trackBar1.Value*10;
+            if (trackBar1.Value >= 5)
+            {
+                iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.VolumeHigh;
+            }
+            else if(trackBar1.Value <5 && trackBar1.Value>0)
+            {
+                iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.VolumeLow;
+            }
+            else if(trackBar1.Value == 0)
+            {
+                iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.VolumeMute;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if(axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            {
+                progressBar1.Value = (int)axWindowsMediaPlayer1.Ctlcontrols.currentPosition;
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            next();
+            timer2.Stop();
         }
     }
 }
