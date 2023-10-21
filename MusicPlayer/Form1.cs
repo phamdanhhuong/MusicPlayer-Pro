@@ -21,8 +21,9 @@ namespace MusicPlayer
             listBox.Hide();
             axWindowsMediaPlayer1.settings.volume = 0;
         }
-        List<music> musicCur = new List<music>();
-        List<music> musicFav = new List<music>();
+        LIST<music> musicCur = new LIST<music>();
+        LIST<music> musicFav = new LIST<music>();
+        List<music> temp;
         bool isFav=false;
         int pos = 0;
         private void Hide()
@@ -62,7 +63,7 @@ namespace MusicPlayer
             }
         }
 
-        private void play(List<music> a,int vt) 
+        private void play(LIST<music> a,int vt) 
         {
             if (a != null)
             {
@@ -89,7 +90,7 @@ namespace MusicPlayer
                 }
             }
         }
-        private bool checkVar(List<music> a,music item)
+        private bool checkVar(LIST<music> a,music item)
         {
             foreach (music m in a)
             {
@@ -132,7 +133,9 @@ namespace MusicPlayer
             axWindowsMediaPlayer1.Hide();
             listBox.Items.Clear();
             isFav = false;
-            foreach (music cur in musicCur)
+            pos = 0;
+            temp=musicCur.toList();
+            foreach (music cur in temp)
             {
                 listBox.Items.Add(cur.Name);
             }
@@ -160,9 +163,12 @@ namespace MusicPlayer
             axWindowsMediaPlayer1.Hide();
             listBox.Items.Clear();
             isFav = true;
-            foreach (music fav in musicFav)
+            pos = 0;
+            temp = musicFav.toList();
+            foreach (music fav in temp)
             {
                 listBox.Items.Add(fav.Name);
+                label1.Text = "is running";
             }
             listBox.Show();
         }
