@@ -54,6 +54,11 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.btnSortFav = new FontAwesome.Sharp.IconButton();
+            this.btnDelete = new FontAwesome.Sharp.IconButton();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.btnSeach = new FontAwesome.Sharp.IconButton();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panelMedia.SuspendLayout();
@@ -64,6 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -79,6 +85,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.WindowText;
+            this.panel3.Controls.Add(this.panel6);
             this.panel3.Controls.Add(this.panelMedia);
             this.panel3.Controls.Add(this.btnMedia);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -89,13 +96,14 @@
             // 
             // panelMedia
             // 
+            this.panelMedia.Controls.Add(this.btnSortFav);
             this.panelMedia.Controls.Add(this.btnFavList);
             this.panelMedia.Controls.Add(this.btnCurList);
             this.panelMedia.Controls.Add(this.btnOpen);
             this.panelMedia.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMedia.Location = new System.Drawing.Point(0, 51);
             this.panelMedia.Name = "panelMedia";
-            this.panelMedia.Size = new System.Drawing.Size(200, 158);
+            this.panelMedia.Size = new System.Drawing.Size(200, 195);
             this.panelMedia.TabIndex = 1;
             // 
             // btnFavList
@@ -213,9 +221,10 @@
             // 
             // progressBar1
             // 
+            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progressBar1.Location = new System.Drawing.Point(0, 522);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(898, 10);
+            this.progressBar1.Size = new System.Drawing.Size(901, 10);
             this.progressBar1.TabIndex = 9;
             // 
             // listBox
@@ -235,6 +244,7 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.btnDelete);
             this.panel5.Controls.Add(this.iconPictureBox2);
             this.panel5.Controls.Add(this.trackBar1);
             this.panel5.Controls.Add(this.btnAddFav);
@@ -359,6 +369,70 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // btnSortFav
+            // 
+            this.btnSortFav.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSortFav.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSortFav.IconChar = FontAwesome.Sharp.IconChar.SortAlphaUp;
+            this.btnSortFav.IconColor = System.Drawing.Color.GreenYellow;
+            this.btnSortFav.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnSortFav.IconSize = 30;
+            this.btnSortFav.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSortFav.Location = new System.Drawing.Point(0, 161);
+            this.btnSortFav.Name = "btnSortFav";
+            this.btnSortFav.Size = new System.Drawing.Size(200, 34);
+            this.btnSortFav.TabIndex = 9;
+            this.btnSortFav.UseVisualStyleBackColor = true;
+            this.btnSortFav.Click += new System.EventHandler(this.btnSortFav_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.IconChar = FontAwesome.Sharp.IconChar.Trash;
+            this.btnDelete.IconColor = System.Drawing.Color.GreenYellow;
+            this.btnDelete.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnDelete.Location = new System.Drawing.Point(554, 29);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(36, 37);
+            this.btnDelete.TabIndex = 9;
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.richTextBox1);
+            this.panel6.Controls.Add(this.btnSeach);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel6.Location = new System.Drawing.Point(0, 484);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(200, 22);
+            this.panel6.TabIndex = 2;
+            // 
+            // btnSeach
+            // 
+            this.btnSeach.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSeach.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSeach.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.btnSeach.IconColor = System.Drawing.Color.Green;
+            this.btnSeach.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnSeach.IconSize = 25;
+            this.btnSeach.Location = new System.Drawing.Point(161, 0);
+            this.btnSeach.Name = "btnSeach";
+            this.btnSeach.Size = new System.Drawing.Size(39, 22);
+            this.btnSeach.TabIndex = 0;
+            this.btnSeach.UseVisualStyleBackColor = true;
+            this.btnSeach.Click += new System.EventHandler(this.btnSeach_Click);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(161, 22);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -383,6 +457,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
+            this.panel6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -413,6 +488,11 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
+        private FontAwesome.Sharp.IconButton btnSortFav;
+        private FontAwesome.Sharp.IconButton btnDelete;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private FontAwesome.Sharp.IconButton btnSeach;
     }
 }
 

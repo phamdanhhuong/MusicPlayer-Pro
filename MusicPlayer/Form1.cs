@@ -20,11 +20,12 @@ namespace MusicPlayer
             axWindowsMediaPlayer1.Hide();
             listBox.Hide();
             axWindowsMediaPlayer1.settings.volume = 0;
+            btnSortFav.Hide();
+            btnDelete.Hide();
         }
         LIST<music> musicCur = new LIST<music>();
         LIST<music> musicFav = new LIST<music>();
         List<music> temp;
-        bool isFav=false;
         int pos = 0;
         private void Hide()
         {
@@ -70,6 +71,7 @@ namespace MusicPlayer
                 btnPlay.IconChar = FontAwesome.Sharp.IconChar.Pause;
                 axWindowsMediaPlayer1.Show();
                 axWindowsMediaPlayer1.URL = a[vt].Path;
+                btnSortFav.Hide();
                 listBox.Hide();
                 label1.Text ="Music's name "+ a[vt].Name;
             }
@@ -83,21 +85,22 @@ namespace MusicPlayer
                for(int i=0; i < openFileDialog1.FileNames.Length; i++)
                 {
                     temp = new music(openFileDialog1.SafeFileNames[i], openFileDialog1.FileNames[i]);
-                    if (checkVar(musicFav, temp)==true)
+                    if (checkVar(musicCur, temp)==1)
                     {
                         musicCur.Add(temp);
                     }
                 }
+               Sort.quickSort(musicCur,0,musicCur.Count-1);
             }
         }
-        private bool checkVar(LIST<music> a,music item)
+        private int checkVar(LIST<music> a,music item)
         {
-            foreach (music m in a)
+            for (int i=0;i<a.Count;i++)
             {
-                if(item.Path==m.Path)
-                    return false;
+                if(string.Compare(item.Path , a[i].Path)==0)
+                    return 0;
             }
-            return true;
+            return 1;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
@@ -139,6 +142,8 @@ namespace MusicPlayer
             {
                 listBox.Items.Add(cur.Name);
             }
+            btnSortFav.Hide();
+            btnDelete.Show();
             listBox.Show();
         }
 
@@ -168,8 +173,9 @@ namespace MusicPlayer
             foreach (music fav in temp)
             {
                 listBox.Items.Add(fav.Name);
-                label1.Text = "is running";
             }
+            btnSortFav.Show();
+            btnDelete.Hide();
             listBox.Show();
         }
 
@@ -196,6 +202,7 @@ namespace MusicPlayer
             if (isFav == true)
             {
                 btnAddFav.IconChar = FontAwesome.Sharp.IconChar.HeartCircleCheck;
+                btnDelete.Hide();
             }
             else
             {
@@ -207,6 +214,7 @@ namespace MusicPlayer
                 {
                     btnAddFav.IconChar = FontAwesome.Sharp.IconChar.Heart;
                 }
+                btnDelete.Show();
             }
         }
         private void btnPre_Click(object sender, EventArgs e)
@@ -309,7 +317,77 @@ namespace MusicPlayer
         private void iconPictureBox1_Click(object sender, EventArgs e)
         {
             axWindowsMediaPlayer1.Show();
+            btnSortFav.Hide();
             listBox.Hide();
+        }
+
+        private void btnSortFav_Click(object sender, EventArgs e)
+        {
+            if(btnSortFav.IconChar==FontAwesome.Sharp.IconChar.SortAlphaUp)
+            {
+                Sort.InterchangeSort(musicFav);
+                listBox.Items.Clear();
+                pos = 0;
+                temp = musicFav.toList();
+                foreach (music fav in temp)
+                {
+                    listBox.Items.Add(fav.Name);
+                }
+                btnSortFav.IconChar = FontAwesome.Sharp.IconChar.SortAlphaUpAlt;
+                listBox.Show();
+            }
+            else
+            {
+                Sort.InterchangeSortRev(musicFav);
+                listBox.Items.Clear();
+                pos = 0;
+                temp = musicFav.toList();
+                foreach (music fav in temp)
+                {
+                    listBox.Items.Add(fav.Name);
+                }
+                btnSortFav.IconChar = FontAwesome.Sharp.IconChar.SortAlphaUp;
+                listBox.Show();
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
+            DialogResult = MessageBox.Show("Ban co muon xoa bai hat nay", "Xoa", MessageBoxButtons.YesNo);
+            if (DialogResult == DialogResult.Yes)
+            {
+                musicCur.Remove(musicCur[pos]);
+                listBox.Items.Clear();
+                isFav = false;
+                pos = 0;
+                temp = musicCur.toList();
+                foreach (music cur in temp)
+                {
+                    listBox.Items.Add(cur.Name);
+                }
+                btnDelete.Show();
+                listBox.Show();
+            }
+        }
+
+        private void btnSeach_Click(object sender, EventArgs e)
+        {
+            music temp=new music(richTextBox1.Text,"");
+            temp = Search.tt(musicCur, temp);
+            if (temp == null)
+            {
+                listBox.Items.Clear();
+            }
+            else
+            {
+                listBox.Items.Clear();
+                isFav = false;
+                pos = 0;
+                listBox.Items.Add(temp);
+                btnDelete.Show();
+                listBox.Show();
+            }
         }
     }
 }
