@@ -13,11 +13,11 @@ namespace MusicPlayer
         {
             int l = 0, r = mySong.Count - 1;
             int m;
-            while (l < r)
+            while (l <= r)
             {
                 m = (l + r) / 2;
                 if (string.Compare(mySong[m].Name, x.Name) == 0)
-                    return x;
+                    return mySong[m];
                 if (string.Compare(mySong[m].Name, x.Name) > 0)
                     r = m - 1;
                 else
@@ -25,12 +25,14 @@ namespace MusicPlayer
             }
             return null;
         }
-        public static music tt(LIST<music> mySong, music x)
+        public static music linear(LIST<music> mySong, music x)
         {
             for (int i = 0; i < mySong.Count; i++)
             {
-                if (string.Compare(mySong[i].Name , x.Name)==0)
-                    return x;
+                if (string.Compare(mySong[i].Name , x.Name) == 0)
+                {
+                    return mySong[i];
+                }
             }
             return null;
         }

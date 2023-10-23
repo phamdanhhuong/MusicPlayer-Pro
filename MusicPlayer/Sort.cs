@@ -9,19 +9,24 @@ namespace MusicPlayer
 {
     internal class Sort
     {
-        public static bool Compare(string a, string b)
+        static int Compare(string a, string b)
         {
-            int pos = 0;
-            cmp:
-            if (a[pos] > b[0])
-                return true;
-            else if (a[pos] < b[0])
-                return false;
-            else
+            for (int i = 0; i < max(a.Length, b.Length); i++)
             {
-                pos++;
-                goto cmp;
+                if (a[i] > b[i])
+                    return 1;
+                else if (a[i] < b[i])
+                    return -1;
+
             }
+            return 0;
+        }
+        static int max(int a, int b)
+        {
+            if (a > b)
+                return a;
+            else
+                return b;
         }
         public static void InterchangeSort(LIST<music> mySong)
         {

@@ -25,8 +25,11 @@ namespace MusicPlayer
         }
         LIST<music> musicCur = new LIST<music>();
         LIST<music> musicFav = new LIST<music>();
+        LIST<music> searchResult = new LIST<music>();
         List<music> temp;
         int pos = 0;
+        bool search = false;
+        bool isFav = false;
         private void Hide()
         {
             panelMedia.Visible = false;
@@ -85,7 +88,7 @@ namespace MusicPlayer
                for(int i=0; i < openFileDialog1.FileNames.Length; i++)
                 {
                     temp = new music(openFileDialog1.SafeFileNames[i], openFileDialog1.FileNames[i]);
-                    if (checkVar(musicCur, temp)==1)
+                    if (checkVar(musicCur, temp)==true)
                     {
                         musicCur.Add(temp);
                     }
@@ -93,14 +96,14 @@ namespace MusicPlayer
                Sort.quickSort(musicCur,0,musicCur.Count-1);
             }
         }
-        private int checkVar(LIST<music> a,music item)
+        private bool checkVar(LIST<music> a, music item)
         {
             for (int i=0;i<a.Count;i++)
             {
                 if(string.Compare(item.Path , a[i].Path)==0)
-                    return 0;
+                    return false;
             }
-            return 1;
+            return true;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
@@ -153,7 +156,10 @@ namespace MusicPlayer
             {
                 btnAddFav.IconChar = FontAwesome.Sharp.IconChar.HeartCircleCheck;
                 musicCur[pos].Fav = true;
-                musicFav.Add(musicCur[pos]);
+                music temp = musicCur[pos];
+                temp.Fav = true;
+                if (musicFav.IndexOfItem(temp)!=-1)
+                    musicFav.Add(temp);
             }
             else if(musicCur[pos].Fav == true)
             {
@@ -183,15 +189,19 @@ namespace MusicPlayer
         {
             if(listBox.SelectedIndex > -1)
             {
-                if(isFav == true)
+                pos = listBox.SelectedIndex;
+                if (search == true)
                 {
-                    pos= listBox.SelectedIndex;
-                    play(musicFav, listBox.SelectedIndex);
+                    play(searchResult, pos);
+                    search = false;
+                }
+                else if (isFav == true)
+                {
+                    play(musicFav, pos);
                 }
                 else
                 {
-                    pos = listBox.SelectedIndex;
-                    play(musicCur, listBox.SelectedIndex);
+                    play(musicCur, pos);
                 }
                 update();
             }
@@ -354,7 +364,7 @@ namespace MusicPlayer
         private void btnDelete_Click(object sender, EventArgs e)
         {
 
-            DialogResult = MessageBox.Show("Ban co muon xoa bai hat nay", "Xoa", MessageBoxButtons.YesNo);
+            DialogResult = MessageBox.Show("Bạn có muốn xóa bài này", "Xóa", MessageBoxButtons.YesNo);
             if (DialogResult == DialogResult.Yes)
             {
                 musicCur.Remove(musicCur[pos]);
@@ -373,20 +383,22 @@ namespace MusicPlayer
 
         private void btnSeach_Click(object sender, EventArgs e)
         {
-            music temp=new music(richTextBox1.Text,"");
-            temp = Search.tt(musicCur, temp);
-            if (temp == null)
+            music tmp = Search.BinarySearch(musicCur, new music(richTextBox1.Text, ""));
+            if (tmp != null)
             {
+                axWindowsMediaPlayer1.Hide();
                 listBox.Items.Clear();
+                searchResult.Add(tmp);
+                listBox.Items.Add(tmp.Name);
+                isFav = false;
+                search = true;
+                pos = 0;
+                btnDelete.Show();
+                listBox.Show();
             }
             else
             {
                 listBox.Items.Clear();
-                isFav = false;
-                pos = 0;
-                listBox.Items.Add(temp);
-                btnDelete.Show();
-                listBox.Show();
             }
         }
     }
