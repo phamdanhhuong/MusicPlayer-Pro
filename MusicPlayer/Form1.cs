@@ -13,6 +13,12 @@ namespace MusicPlayer
 {
     public partial class Form1 : Form
     {
+        enum status
+        {
+            Curr=1,
+            Search=2,
+            Album=3
+        }
         public Form1()
         {
             InitializeComponent();
@@ -27,9 +33,9 @@ namespace MusicPlayer
         LIST<music> musicFav = new LIST<music>();
         LIST<music> searchResult = new LIST<music>();
         List<music> temp;
+
         int pos = 0;
-        bool search = false;
-        bool isFav = false;
+        status where= status.Curr;
         private void Hide()
         {
             panelMedia.Visible = false;
@@ -121,13 +127,17 @@ namespace MusicPlayer
                 }
                 catch
                 {
-                    if (isFav == true)
+                    if (where == status.Album)
                     {
                         play(musicFav, pos);
                     }
-                    else if (isFav == false)
+                    else if (where == status.Curr)
                     {
                         play(musicCur, pos);
+                    }
+                    else if (where == status.Search)
+                    {
+                        play(searchResult, pos);
                     }
                 }
                 btnPlay.IconChar = FontAwesome.Sharp.IconChar.Pause;
@@ -138,7 +148,7 @@ namespace MusicPlayer
         {
             axWindowsMediaPlayer1.Hide();
             listBox.Items.Clear();
-            isFav = false;
+            where=status.Curr;
             pos = 0;
             temp=musicCur.toList();
             foreach (music cur in temp)
@@ -169,33 +179,32 @@ namespace MusicPlayer
             }
         }
 
-        private void btnFavList_Click(object sender, EventArgs e)
-        {
-            axWindowsMediaPlayer1.Hide();
-            listBox.Items.Clear();
-            isFav = true;
-            pos = 0;
-            temp = musicFav.toList();
-            foreach (music fav in temp)
-            {
-                listBox.Items.Add(fav.Name);
-            }
-            btnSortFav.Show();
-            btnDelete.Hide();
-            listBox.Show();
-        }
+        //private void btnFavList_Click(object sender, EventArgs e)
+        //{
+        //    axWindowsMediaPlayer1.Hide();
+        //    listBox.Items.Clear();
+        //    isFav = true;
+        //    pos = 0;
+        //    temp = musicFav.toList();
+        //    foreach (music fav in temp)
+        //    {
+        //        listBox.Items.Add(fav.Name);
+        //    }
+        //    btnSortFav.Show();
+        //    btnDelete.Hide();
+        //    listBox.Show();
+        //}
 
         private void listBox_DoubleClick(object sender, EventArgs e)
         {
             if(listBox.SelectedIndex > -1)
             {
                 pos = listBox.SelectedIndex;
-                if (search == true)
+                if (where == status.Search)
                 {
                     play(searchResult, pos);
-                    search = false;
                 }
-                else if (isFav == true)
+                else if (where == status.Album)
                 {
                     play(musicFav, pos);
                 }
@@ -209,12 +218,12 @@ namespace MusicPlayer
 
         private void update()
         {
-            if (isFav == true)
+            if (where == status.Album)
             {
                 btnAddFav.IconChar = FontAwesome.Sharp.IconChar.HeartCircleCheck;
                 btnDelete.Hide();
             }
-            else
+            else if(where == status.Curr)
             {
                 if (musicCur[pos].Fav)
                 {
@@ -226,6 +235,17 @@ namespace MusicPlayer
                 }
                 btnDelete.Show();
             }
+            else if(where == status.Search)
+            {
+                if (searchResult[pos].Fav)
+                {
+                    btnAddFav.IconChar = FontAwesome.Sharp.IconChar.HeartCircleCheck;
+                }
+                else
+                {
+                    btnAddFav.IconChar = FontAwesome.Sharp.IconChar.Heart;
+                }
+            }
         }
         private void btnPre_Click(object sender, EventArgs e)
         {
@@ -233,7 +253,7 @@ namespace MusicPlayer
         }
         private void pre()
         {
-            if (isFav == true)
+            if (where == status.Album)
             {
                 if (pos == 0)
                     pos = musicFav.Count - 1;
@@ -241,13 +261,21 @@ namespace MusicPlayer
                     pos--;
                 play(musicFav, pos);
             }
-            else if (isFav == false)
+            else if (where == status.Curr)
             {
                 if (pos == 0)
                     pos = musicCur.Count - 1;
                 else if (pos > 0)
                     pos--;
                 play(musicCur, pos);
+            }
+            else if(where == status.Search)
+            {
+                if (pos == 0)
+                    pos = searchResult.Count - 1;
+                else if (pos > 0)
+                    pos--;
+                play(searchResult, pos);
             }
             update();
         }
@@ -257,7 +285,7 @@ namespace MusicPlayer
         }
         private void next()
         {
-            if (isFav == true)
+            if (where == status.Album)
             {
                 if (pos == musicFav.Count - 1)
                     pos = 0;
@@ -265,13 +293,21 @@ namespace MusicPlayer
                     pos++;
                 play(musicFav, pos);
             }
-            else if (isFav == false)
+            else if (where == status.Curr)
             {
                 if (pos == musicCur.Count - 1)
                     pos = 0;
                 else
                     pos++;
                 play(musicCur, pos);
+            }
+            else if(where == status.Search)
+            {
+                if (pos == searchResult.Count - 1)
+                    pos = 0;
+                else
+                    pos++;
+                play(searchResult, pos);
             }
             update();
         }
@@ -369,7 +405,7 @@ namespace MusicPlayer
             {
                 musicCur.Remove(musicCur[pos]);
                 listBox.Items.Clear();
-                isFav = false;
+                where = status.Curr;
                 pos = 0;
                 temp = musicCur.toList();
                 foreach (music cur in temp)
@@ -390,8 +426,7 @@ namespace MusicPlayer
                 listBox.Items.Clear();
                 searchResult.Add(tmp);
                 listBox.Items.Add(tmp.Name);
-                isFav = false;
-                search = true;
+                where = status.Search;
                 pos = 0;
                 btnDelete.Show();
                 listBox.Show();
@@ -400,6 +435,11 @@ namespace MusicPlayer
             {
                 listBox.Items.Clear();
             }
+        }
+
+        private void btnAlbumList_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

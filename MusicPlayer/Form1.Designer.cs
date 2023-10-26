@@ -37,7 +37,7 @@
             this.btnSeach = new FontAwesome.Sharp.IconButton();
             this.panelMedia = new System.Windows.Forms.Panel();
             this.btnSortFav = new FontAwesome.Sharp.IconButton();
-            this.btnFavList = new FontAwesome.Sharp.IconButton();
+            this.btnAlbumList = new FontAwesome.Sharp.IconButton();
             this.btnCurList = new FontAwesome.Sharp.IconButton();
             this.btnOpen = new FontAwesome.Sharp.IconButton();
             this.btnMedia = new FontAwesome.Sharp.IconButton();
@@ -132,7 +132,7 @@
             // panelMedia
             // 
             this.panelMedia.Controls.Add(this.btnSortFav);
-            this.panelMedia.Controls.Add(this.btnFavList);
+            this.panelMedia.Controls.Add(this.btnAlbumList);
             this.panelMedia.Controls.Add(this.btnCurList);
             this.panelMedia.Controls.Add(this.btnOpen);
             this.panelMedia.Dock = System.Windows.Forms.DockStyle.Top;
@@ -158,25 +158,25 @@
             this.btnSortFav.UseVisualStyleBackColor = true;
             this.btnSortFav.Click += new System.EventHandler(this.btnSortFav_Click);
             // 
-            // btnFavList
+            // btnAlbumList
             // 
-            this.btnFavList.BackColor = System.Drawing.Color.Black;
-            this.btnFavList.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFavList.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnFavList.FlatAppearance.BorderSize = 0;
-            this.btnFavList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFavList.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnFavList.IconChar = FontAwesome.Sharp.IconChar.Heart;
-            this.btnFavList.IconColor = System.Drawing.Color.Green;
-            this.btnFavList.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnFavList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFavList.Location = new System.Drawing.Point(0, 102);
-            this.btnFavList.Name = "btnFavList";
-            this.btnFavList.Size = new System.Drawing.Size(200, 51);
-            this.btnFavList.TabIndex = 3;
-            this.btnFavList.Text = "Favourite";
-            this.btnFavList.UseVisualStyleBackColor = false;
-            this.btnFavList.Click += new System.EventHandler(this.btnFavList_Click);
+            this.btnAlbumList.BackColor = System.Drawing.Color.Black;
+            this.btnAlbumList.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAlbumList.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAlbumList.FlatAppearance.BorderSize = 0;
+            this.btnAlbumList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAlbumList.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.btnAlbumList.IconChar = FontAwesome.Sharp.IconChar.Book;
+            this.btnAlbumList.IconColor = System.Drawing.Color.Green;
+            this.btnAlbumList.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnAlbumList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAlbumList.Location = new System.Drawing.Point(0, 102);
+            this.btnAlbumList.Name = "btnAlbumList";
+            this.btnAlbumList.Size = new System.Drawing.Size(200, 51);
+            this.btnAlbumList.TabIndex = 3;
+            this.btnAlbumList.Text = "Album";
+            this.btnAlbumList.UseVisualStyleBackColor = false;
+            this.btnAlbumList.Click += new System.EventHandler(this.btnAlbumList_Click);
             // 
             // btnCurList
             // 
@@ -491,7 +491,7 @@
         private System.Windows.Forms.Panel panel5;
         private FontAwesome.Sharp.IconButton btnNext;
         private FontAwesome.Sharp.IconButton btnPre;
-        private FontAwesome.Sharp.IconButton btnFavList;
+        private FontAwesome.Sharp.IconButton btnAlbumList;
         private System.Windows.Forms.ListBox listBox;
         private FontAwesome.Sharp.IconButton btnAddFav;
         private System.Windows.Forms.Label label1;
