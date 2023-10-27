@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
+using ListBox = System.Windows.Forms.ListBox;
 
 namespace MusicPlayer
 {
@@ -17,7 +19,8 @@ namespace MusicPlayer
         {
             Curr=1,
             Search=2,
-            Album=3
+            Album=3,
+            Fav=4
         }
         public Form1()
         {
@@ -28,12 +31,13 @@ namespace MusicPlayer
             axWindowsMediaPlayer1.settings.volume = 0;
             btnSortFav.Hide();
             btnDelete.Hide();
+            TabControlAlbum.Hide();
         }
         LIST<music> musicCur = new LIST<music>();
         LIST<music> musicFav = new LIST<music>();
         LIST<music> searchResult = new LIST<music>();
         List<music> temp;
-
+        album[] album = new album[0];
         int pos = 0;
         status where= status.Curr;
         private void Hide()
@@ -127,7 +131,7 @@ namespace MusicPlayer
                 }
                 catch
                 {
-                    if (where == status.Album)
+                    if (where == status.Fav)
                     {
                         play(musicFav, pos);
                     }
@@ -158,6 +162,7 @@ namespace MusicPlayer
             btnSortFav.Hide();
             btnDelete.Show();
             listBox.Show();
+            TabControlAlbum.Hide();
         }
 
         private void btnAddFav_Click(object sender, EventArgs e)
@@ -168,7 +173,7 @@ namespace MusicPlayer
                 musicCur[pos].Fav = true;
                 music temp = musicCur[pos];
                 temp.Fav = true;
-                if (musicFav.IndexOfItem(temp)!=-1)
+                if (musicFav.IndexOfItem(temp)==-1)
                     musicFav.Add(temp);
             }
             else if(musicCur[pos].Fav == true)
@@ -178,25 +183,9 @@ namespace MusicPlayer
                 musicFav.Remove(musicCur[pos]);
             }
         }
-
-        //private void btnFavList_Click(object sender, EventArgs e)
-        //{
-        //    axWindowsMediaPlayer1.Hide();
-        //    listBox.Items.Clear();
-        //    isFav = true;
-        //    pos = 0;
-        //    temp = musicFav.toList();
-        //    foreach (music fav in temp)
-        //    {
-        //        listBox.Items.Add(fav.Name);
-        //    }
-        //    btnSortFav.Show();
-        //    btnDelete.Hide();
-        //    listBox.Show();
-        //}
-
         private void listBox_DoubleClick(object sender, EventArgs e)
         {
+            
             if(listBox.SelectedIndex > -1)
             {
                 pos = listBox.SelectedIndex;
@@ -204,7 +193,7 @@ namespace MusicPlayer
                 {
                     play(searchResult, pos);
                 }
-                else if (where == status.Album)
+                else if (where == status.Fav)
                 {
                     play(musicFav, pos);
                 }
@@ -218,7 +207,7 @@ namespace MusicPlayer
 
         private void update()
         {
-            if (where == status.Album)
+            if (where == status.Fav)
             {
                 btnAddFav.IconChar = FontAwesome.Sharp.IconChar.HeartCircleCheck;
                 btnDelete.Hide();
@@ -253,7 +242,7 @@ namespace MusicPlayer
         }
         private void pre()
         {
-            if (where == status.Album)
+            if (where == status.Fav)
             {
                 if (pos == 0)
                     pos = musicFav.Count - 1;
@@ -285,7 +274,7 @@ namespace MusicPlayer
         }
         private void next()
         {
-            if (where == status.Album)
+            if (where == status.Fav)
             {
                 if (pos == musicFav.Count - 1)
                     pos = 0;
@@ -365,6 +354,7 @@ namespace MusicPlayer
             axWindowsMediaPlayer1.Show();
             btnSortFav.Hide();
             listBox.Hide();
+            TabControlAlbum.Hide();
         }
 
         private void btnSortFav_Click(object sender, EventArgs e)
@@ -412,6 +402,16 @@ namespace MusicPlayer
                 {
                     listBox.Items.Add(cur.Name);
                 }
+                if (musicCur.Count>0)
+                {
+                    play(musicCur, pos);
+                    axWindowsMediaPlayer1.Ctlcontrols.pause();
+                }
+                else
+                    axWindowsMediaPlayer1.Ctlcontrols.pause();
+                btnPlay.IconChar = FontAwesome.Sharp.IconChar.Play;
+                label1.Text = "Music's name";
+                progressBar1.Value = 0;
                 btnDelete.Show();
                 listBox.Show();
             }
@@ -439,7 +439,74 @@ namespace MusicPlayer
 
         private void btnAlbumList_Click(object sender, EventArgs e)
         {
+            listBox.Hide();
+            axWindowsMediaPlayer1.Hide();
+            TabControlAlbum.Show();
+            if (TabControlAlbum.SelectedIndex == 0)
+            {
+                listBox.Items.Clear();
+                where = status.Fav;
+                pos = 0;
+                temp = musicFav.toList();
+                foreach (music fav in temp)
+                {
+                    listBox.Items.Add(fav.Name);
+                }
+                FavouritePage.Controls.Add(listBox);
+                listBox.Visible = true;
+            }
+        }
 
+        private void btnFav_Click(object sender, EventArgs e)
+        {
+            axWindowsMediaPlayer1.Hide();
+            listBox.Items.Clear();
+            listBox.Show();
+            where = status.Fav;
+            pos = 0;
+            temp = musicFav.toList();
+            foreach (music fav in temp)
+            {
+                listBox.Items.Add(fav.Name);
+            }
+            btnSortFav.Show();
+            btnDelete.Hide();
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            using (TabName tabNameInputForm = new TabName())
+            {
+                if (tabNameInputForm.ShowDialog() == DialogResult.OK)
+                {
+                    // Lấy tên từ TextBox trên Form TabNameInputForm
+                    string tabName = tabNameInputForm.TabNameInput;
+                    // Tạo một tabPage mới với tên từ người dùng
+                    TabPage newTab = new TabPage(tabName);
+                    // Thêm tabPage mới vào TabControl
+                    TabControlAlbum.TabPages.Add(newTab);
+                    // Chuyển đến tabPage mới
+                    TabControlAlbum.SelectedTab = newTab;
+                }
+            }
+            TabControlAlbum.Show();
+        }
+
+        private void TabControlAlbum_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TabControlAlbum.SelectedIndex==0)
+            {
+                listBox.Items.Clear();
+                where = status.Fav;
+                pos = 0;
+                temp = musicFav.toList();
+                foreach (music fav in temp)
+                {
+                    listBox.Items.Add(fav.Name);
+                }
+                FavouritePage.Controls.Add(listBox);
+                listBox.Visible = true;
+            }
         }
     }
 }

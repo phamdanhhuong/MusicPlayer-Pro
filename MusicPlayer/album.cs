@@ -17,6 +17,7 @@ namespace MusicPlayer
             albumName = name;
             musicList = a;  
         }
+        public album() { }
         public void Add(music a)
         {
             musicList.Add(a);
