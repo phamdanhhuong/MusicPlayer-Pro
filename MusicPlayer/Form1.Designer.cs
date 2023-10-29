@@ -36,17 +36,16 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.btnSeach = new FontAwesome.Sharp.IconButton();
             this.panelMedia = new System.Windows.Forms.Panel();
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
             this.btnSortFav = new FontAwesome.Sharp.IconButton();
-            this.btnFav = new FontAwesome.Sharp.IconButton();
+            this.iconButton1 = new FontAwesome.Sharp.IconButton();
             this.btnAlbumList = new FontAwesome.Sharp.IconButton();
-            this.btnCurList = new FontAwesome.Sharp.IconButton();
             this.btnOpen = new FontAwesome.Sharp.IconButton();
             this.btnMedia = new FontAwesome.Sharp.IconButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.TabControlAlbum = new System.Windows.Forms.TabControl();
+            this.CurrListPage = new System.Windows.Forms.TabPage();
             this.FavouritePage = new System.Windows.Forms.TabPage();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.listBox = new System.Windows.Forms.ListBox();
@@ -63,6 +62,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.btnDeletePage = new FontAwesome.Sharp.IconButton();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -71,6 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).BeginInit();
             this.panel4.SuspendLayout();
             this.TabControlAlbum.SuspendLayout();
+            this.CurrListPage.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -136,17 +137,32 @@
             // 
             // panelMedia
             // 
-            this.panelMedia.Controls.Add(this.iconButton1);
             this.panelMedia.Controls.Add(this.btnSortFav);
-            this.panelMedia.Controls.Add(this.btnFav);
+            this.panelMedia.Controls.Add(this.iconButton1);
             this.panelMedia.Controls.Add(this.btnAlbumList);
-            this.panelMedia.Controls.Add(this.btnCurList);
             this.panelMedia.Controls.Add(this.btnOpen);
             this.panelMedia.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMedia.Location = new System.Drawing.Point(0, 51);
             this.panelMedia.Name = "panelMedia";
-            this.panelMedia.Size = new System.Drawing.Size(200, 302);
+            this.panelMedia.Size = new System.Drawing.Size(200, 204);
             this.panelMedia.TabIndex = 1;
+            // 
+            // btnSortFav
+            // 
+            this.btnSortFav.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSortFav.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSortFav.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSortFav.IconChar = FontAwesome.Sharp.IconChar.SortAlphaUp;
+            this.btnSortFav.IconColor = System.Drawing.Color.GreenYellow;
+            this.btnSortFav.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnSortFav.IconSize = 30;
+            this.btnSortFav.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSortFav.Location = new System.Drawing.Point(0, 153);
+            this.btnSortFav.Name = "btnSortFav";
+            this.btnSortFav.Size = new System.Drawing.Size(200, 34);
+            this.btnSortFav.TabIndex = 11;
+            this.btnSortFav.UseVisualStyleBackColor = true;
+            this.btnSortFav.Click += new System.EventHandler(this.btnSortFav_Click);
             // 
             // iconButton1
             // 
@@ -160,50 +176,13 @@
             this.iconButton1.IconColor = System.Drawing.Color.Green;
             this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButton1.Location = new System.Drawing.Point(0, 238);
+            this.iconButton1.Location = new System.Drawing.Point(0, 102);
             this.iconButton1.Name = "iconButton1";
             this.iconButton1.Size = new System.Drawing.Size(200, 51);
             this.iconButton1.TabIndex = 10;
             this.iconButton1.Text = "Add new album";
             this.iconButton1.UseVisualStyleBackColor = false;
             this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
-            // 
-            // btnSortFav
-            // 
-            this.btnSortFav.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSortFav.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSortFav.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSortFav.IconChar = FontAwesome.Sharp.IconChar.SortAlphaUp;
-            this.btnSortFav.IconColor = System.Drawing.Color.GreenYellow;
-            this.btnSortFav.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnSortFav.IconSize = 30;
-            this.btnSortFav.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSortFav.Location = new System.Drawing.Point(0, 204);
-            this.btnSortFav.Name = "btnSortFav";
-            this.btnSortFav.Size = new System.Drawing.Size(200, 34);
-            this.btnSortFav.TabIndex = 9;
-            this.btnSortFav.UseVisualStyleBackColor = true;
-            this.btnSortFav.Click += new System.EventHandler(this.btnSortFav_Click);
-            // 
-            // btnFav
-            // 
-            this.btnFav.BackColor = System.Drawing.Color.Black;
-            this.btnFav.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFav.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnFav.FlatAppearance.BorderSize = 0;
-            this.btnFav.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFav.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnFav.IconChar = FontAwesome.Sharp.IconChar.Heart;
-            this.btnFav.IconColor = System.Drawing.Color.Green;
-            this.btnFav.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnFav.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFav.Location = new System.Drawing.Point(0, 153);
-            this.btnFav.Name = "btnFav";
-            this.btnFav.Size = new System.Drawing.Size(200, 51);
-            this.btnFav.TabIndex = 4;
-            this.btnFav.Text = "Favourite";
-            this.btnFav.UseVisualStyleBackColor = false;
-            this.btnFav.Click += new System.EventHandler(this.btnFav_Click);
             // 
             // btnAlbumList
             // 
@@ -217,33 +196,13 @@
             this.btnAlbumList.IconColor = System.Drawing.Color.Green;
             this.btnAlbumList.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAlbumList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAlbumList.Location = new System.Drawing.Point(0, 102);
+            this.btnAlbumList.Location = new System.Drawing.Point(0, 51);
             this.btnAlbumList.Name = "btnAlbumList";
             this.btnAlbumList.Size = new System.Drawing.Size(200, 51);
             this.btnAlbumList.TabIndex = 3;
             this.btnAlbumList.Text = "Album";
             this.btnAlbumList.UseVisualStyleBackColor = false;
             this.btnAlbumList.Click += new System.EventHandler(this.btnAlbumList_Click);
-            // 
-            // btnCurList
-            // 
-            this.btnCurList.BackColor = System.Drawing.Color.Black;
-            this.btnCurList.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCurList.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnCurList.FlatAppearance.BorderSize = 0;
-            this.btnCurList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCurList.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnCurList.IconChar = FontAwesome.Sharp.IconChar.List;
-            this.btnCurList.IconColor = System.Drawing.Color.Green;
-            this.btnCurList.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnCurList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCurList.Location = new System.Drawing.Point(0, 51);
-            this.btnCurList.Name = "btnCurList";
-            this.btnCurList.Size = new System.Drawing.Size(200, 51);
-            this.btnCurList.TabIndex = 2;
-            this.btnCurList.Text = "List";
-            this.btnCurList.UseVisualStyleBackColor = false;
-            this.btnCurList.Click += new System.EventHandler(this.btnCurList_Click);
             // 
             // btnOpen
             // 
@@ -326,6 +285,7 @@
             // 
             // TabControlAlbum
             // 
+            this.TabControlAlbum.Controls.Add(this.CurrListPage);
             this.TabControlAlbum.Controls.Add(this.FavouritePage);
             this.TabControlAlbum.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControlAlbum.Location = new System.Drawing.Point(0, 0);
@@ -335,13 +295,24 @@
             this.TabControlAlbum.TabIndex = 10;
             this.TabControlAlbum.SelectedIndexChanged += new System.EventHandler(this.TabControlAlbum_SelectedIndexChanged);
             // 
+            // CurrListPage
+            // 
+            this.CurrListPage.Controls.Add(this.btnDeletePage);
+            this.CurrListPage.Location = new System.Drawing.Point(4, 22);
+            this.CurrListPage.Name = "CurrListPage";
+            this.CurrListPage.Padding = new System.Windows.Forms.Padding(3);
+            this.CurrListPage.Size = new System.Drawing.Size(893, 496);
+            this.CurrListPage.TabIndex = 0;
+            this.CurrListPage.Text = "List Music";
+            this.CurrListPage.UseVisualStyleBackColor = true;
+            // 
             // FavouritePage
             // 
             this.FavouritePage.Location = new System.Drawing.Point(4, 22);
             this.FavouritePage.Name = "FavouritePage";
             this.FavouritePage.Padding = new System.Windows.Forms.Padding(3);
             this.FavouritePage.Size = new System.Drawing.Size(893, 496);
-            this.FavouritePage.TabIndex = 0;
+            this.FavouritePage.TabIndex = 1;
             this.FavouritePage.Text = "Favourite";
             this.FavouritePage.UseVisualStyleBackColor = true;
             // 
@@ -514,6 +485,24 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // btnDeletePage
+            // 
+            this.btnDeletePage.BackColor = System.Drawing.Color.Silver;
+            this.btnDeletePage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDeletePage.FlatAppearance.BorderSize = 0;
+            this.btnDeletePage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeletePage.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnDeletePage.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
+            this.btnDeletePage.IconColor = System.Drawing.Color.Black;
+            this.btnDeletePage.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnDeletePage.Location = new System.Drawing.Point(851, 420);
+            this.btnDeletePage.Name = "btnDeletePage";
+            this.btnDeletePage.Size = new System.Drawing.Size(39, 54);
+            this.btnDeletePage.TabIndex = 10;
+            this.btnDeletePage.UseVisualStyleBackColor = false;
+            this.btnDeletePage.Visible = false;
+            this.btnDeletePage.Click += new System.EventHandler(this.btnDeletePage_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -526,7 +515,6 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
@@ -535,6 +523,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).EndInit();
             this.panel4.ResumeLayout(false);
             this.TabControlAlbum.ResumeLayout(false);
+            this.CurrListPage.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox2)).EndInit();
@@ -551,7 +540,6 @@
         private System.Windows.Forms.Panel panel2;
         private FontAwesome.Sharp.IconButton btnMedia;
         private System.Windows.Forms.Panel panelMedia;
-        private FontAwesome.Sharp.IconButton btnCurList;
         private FontAwesome.Sharp.IconButton btnOpen;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
         private System.Windows.Forms.Panel panel4;
@@ -570,15 +558,16 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
-        private FontAwesome.Sharp.IconButton btnSortFav;
         private FontAwesome.Sharp.IconButton btnDelete;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private FontAwesome.Sharp.IconButton btnSeach;
-        private FontAwesome.Sharp.IconButton btnFav;
         private FontAwesome.Sharp.IconButton iconButton1;
         private System.Windows.Forms.TabControl TabControlAlbum;
+        private System.Windows.Forms.TabPage CurrListPage;
         private System.Windows.Forms.TabPage FavouritePage;
+        private FontAwesome.Sharp.IconButton btnSortFav;
+        private FontAwesome.Sharp.IconButton btnDeletePage;
     }
 }
 

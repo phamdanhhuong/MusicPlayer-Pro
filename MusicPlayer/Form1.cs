@@ -25,46 +25,32 @@ namespace MusicPlayer
         public Form1()
         {
             InitializeComponent();
-            Hide();
             axWindowsMediaPlayer1.Hide();
             listBox.Hide();
             axWindowsMediaPlayer1.settings.volume = 0;
             btnSortFav.Hide();
             btnDelete.Hide();
             TabControlAlbum.Hide();
+            panelMedia.Hide();
+            panel6.Hide();
         }
         LIST<music> musicCur = new LIST<music>();
         LIST<music> musicFav = new LIST<music>();
         LIST<music> searchResult = new LIST<music>();
-        List<music> temp;
-        album[] album = new album[0];
+        LIST<string> AlbumName = new LIST<string>();
+        Dictionary<string,LIST<music>> musicDic=new Dictionary<string,LIST<music>>();
+        
         int pos = 0;
         status where= status.Curr;
-        private void Hide()
-        {
-            panelMedia.Visible = false;
-        }
-        private void Show()
-        {
-            if (panelMedia.Visible == false)
-            {
-                panelMedia.Visible = true;
-            }
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnMedia_Click(object sender, EventArgs e)
         {
             if (panelMedia.Visible == true)
             {
-                Hide();
+                panelMedia.Hide();
             }
             else
             {
-                Show();
+                panelMedia.Show();
             }
         }
 
@@ -86,6 +72,7 @@ namespace MusicPlayer
                 axWindowsMediaPlayer1.URL = a[vt].Path;
                 btnSortFav.Hide();
                 listBox.Hide();
+                TabControlAlbum.Hide();
                 label1.Text ="Music's name "+ a[vt].Name;
             }
         }
@@ -146,23 +133,6 @@ namespace MusicPlayer
                 }
                 btnPlay.IconChar = FontAwesome.Sharp.IconChar.Pause;
             }
-        }
-
-        private void btnCurList_Click(object sender, EventArgs e)
-        {
-            axWindowsMediaPlayer1.Hide();
-            listBox.Items.Clear();
-            where=status.Curr;
-            pos = 0;
-            temp=musicCur.toList();
-            foreach (music cur in temp)
-            {
-                listBox.Items.Add(cur.Name);
-            }
-            btnSortFav.Hide();
-            btnDelete.Show();
-            listBox.Show();
-            TabControlAlbum.Hide();
         }
 
         private void btnAddFav_Click(object sender, EventArgs e)
@@ -352,6 +322,7 @@ namespace MusicPlayer
         private void iconPictureBox1_Click(object sender, EventArgs e)
         {
             axWindowsMediaPlayer1.Show();
+            panel6.Hide();
             btnSortFav.Hide();
             listBox.Hide();
             TabControlAlbum.Hide();
@@ -364,26 +335,24 @@ namespace MusicPlayer
                 Sort.InterchangeSort(musicFav);
                 listBox.Items.Clear();
                 pos = 0;
-                temp = musicFav.toList();
-                foreach (music fav in temp)
+                for(int i = 0; i < musicFav.Count; i++)
                 {
-                    listBox.Items.Add(fav.Name);
+                    listBox.Items.Add(musicFav[i].Name);
                 }
                 btnSortFav.IconChar = FontAwesome.Sharp.IconChar.SortAlphaUpAlt;
-                listBox.Show();
+                TabControlAlbum.SelectTab(FavouritePage);
             }
             else
             {
                 Sort.InterchangeSortRev(musicFav);
                 listBox.Items.Clear();
                 pos = 0;
-                temp = musicFav.toList();
-                foreach (music fav in temp)
+                for (int i = 0; i < musicFav.Count; i++)
                 {
-                    listBox.Items.Add(fav.Name);
+                    listBox.Items.Add(musicFav[i].Name);
                 }
                 btnSortFav.IconChar = FontAwesome.Sharp.IconChar.SortAlphaUp;
-                listBox.Show();
+                TabControlAlbum.SelectTab(FavouritePage);
             }
         }
 
@@ -397,10 +366,9 @@ namespace MusicPlayer
                 listBox.Items.Clear();
                 where = status.Curr;
                 pos = 0;
-                temp = musicCur.toList();
-                foreach (music cur in temp)
+                for (int i = 0; i < musicCur.Count; i++)
                 {
-                    listBox.Items.Add(cur.Name);
+                    listBox.Items.Add(musicCur[i].Name);
                 }
                 if (musicCur.Count>0)
                 {
@@ -408,12 +376,13 @@ namespace MusicPlayer
                     axWindowsMediaPlayer1.Ctlcontrols.pause();
                 }
                 else
+                {
                     axWindowsMediaPlayer1.Ctlcontrols.pause();
+                    label1.Text = "Music's name";
+                }
                 btnPlay.IconChar = FontAwesome.Sharp.IconChar.Play;
-                label1.Text = "Music's name";
                 progressBar1.Value = 0;
                 btnDelete.Show();
-                listBox.Show();
             }
         }
 
@@ -439,39 +408,22 @@ namespace MusicPlayer
 
         private void btnAlbumList_Click(object sender, EventArgs e)
         {
-            listBox.Hide();
+            panel6.Show();
             axWindowsMediaPlayer1.Hide();
             TabControlAlbum.Show();
-            if (TabControlAlbum.SelectedIndex == 0)
-            {
-                listBox.Items.Clear();
-                where = status.Fav;
-                pos = 0;
-                temp = musicFav.toList();
-                foreach (music fav in temp)
-                {
-                    listBox.Items.Add(fav.Name);
-                }
-                FavouritePage.Controls.Add(listBox);
-                listBox.Visible = true;
-            }
-        }
-
-        private void btnFav_Click(object sender, EventArgs e)
-        {
-            axWindowsMediaPlayer1.Hide();
+            TabControlAlbum.SelectTab(CurrListPage);
             listBox.Items.Clear();
-            listBox.Show();
-            where = status.Fav;
+            btnDelete.Show();
+            where = status.Curr;
             pos = 0;
-            temp = musicFav.toList();
-            foreach (music fav in temp)
+            for (int i = 0; i < musicCur.Count; i++)
             {
-                listBox.Items.Add(fav.Name);
+                listBox.Items.Add(musicCur[i].Name);
             }
-            btnSortFav.Show();
-            btnDelete.Hide();
+            CurrListPage.Controls.Add(listBox);
+            listBox.Visible = true;
         }
+       
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
@@ -485,6 +437,9 @@ namespace MusicPlayer
                     TabPage newTab = new TabPage(tabName);
                     // Thêm tabPage mới vào TabControl
                     TabControlAlbum.TabPages.Add(newTab);
+                    //creat a new music list
+                    LIST<music> a = new LIST<music>();
+                    musicDic.Add(tabName, a);
                     // Chuyển đến tabPage mới
                     TabControlAlbum.SelectedTab = newTab;
                 }
@@ -494,18 +449,67 @@ namespace MusicPlayer
 
         private void TabControlAlbum_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (TabControlAlbum.SelectedIndex==0)
+            if (TabControlAlbum.SelectedTab==CurrListPage)
+            {
+                panel6.Show();
+                listBox.Items.Clear();
+                where = status.Curr;
+                btnDelete.Show();
+                pos = 0;
+                for (int i = 0; i < musicCur.Count; i++)
+                {
+                    listBox.Items.Add(musicCur[i].Name);
+                }
+                CurrListPage.Controls.Add(listBox);
+                listBox.Visible = true;
+            }
+            else if (TabControlAlbum.SelectedTab== FavouritePage)
             {
                 listBox.Items.Clear();
+                panel6.Hide();
+                btnSortFav.Show();
                 where = status.Fav;
+                btnDelete.Hide();
                 pos = 0;
-                temp = musicFav.toList();
-                foreach (music fav in temp)
+                for (int i = 0; i < musicFav.Count; i++)
                 {
-                    listBox.Items.Add(fav.Name);
+                    listBox.Items.Add(musicFav[i].Name);
                 }
                 FavouritePage.Controls.Add(listBox);
                 listBox.Visible = true;
+            }
+            else
+            {
+                LIST<music> temp = musicDic[TabControlAlbum.SelectedTab.Text];
+                listBox.Items.Clear();
+                panel6.Hide();
+                where = status.Album;
+                btnDelete.Hide();
+                pos = 0;
+                for (int i = 0; i < temp.Count; i++)
+                {
+                    listBox.Items.Add(temp[i].Name);
+                }
+                TabControlAlbum.SelectedTab.Controls.Add(listBox);
+                TabControlAlbum.SelectedTab.Controls.Add(btnDeletePage);
+                listBox.Visible = true;
+                btnDeletePage.Visible = true;
+                btnDeletePage.BringToFront();
+            }
+        }
+
+        private void btnDeletePage_Click(object sender, EventArgs e)
+        {
+            if (TabControlAlbum.TabCount > 0)
+            {
+                DialogResult = MessageBox.Show("Bạn có muốn xóa", "Remove Tab", MessageBoxButtons.YesNo);
+                if (DialogResult == DialogResult.Yes)
+                {
+                    int currentIndex = TabControlAlbum.SelectedIndex;
+                    TabControlAlbum.TabPages.Remove(TabControlAlbum.SelectedTab);
+                    if (currentIndex > 0)
+                        TabControlAlbum.SelectedTab = TabControlAlbum.TabPages[currentIndex - 1];
+                }
             }
         }
     }
