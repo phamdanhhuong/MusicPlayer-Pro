@@ -34,7 +34,7 @@ namespace MusicPlayer
             panelMedia.Hide();
             panel6.Hide();
         }
-        LIST<music> musicCur = new LIST<music>();
+        LIST <music> musicCur = new LIST<music>();
         LIST<music> musicFav = new LIST<music>();
         LIST<music> searchResult = new LIST<music>();
         LIST<string> AlbumName = new LIST<string>();
@@ -438,13 +438,13 @@ namespace MusicPlayer
                     // Thêm tabPage mới vào TabControl
                     TabControlAlbum.TabPages.Add(newTab);
                     //creat a new music list
-                    LIST<music> a = new LIST<music>();
-                    musicDic.Add(tabName, a);
+                    AlbumName.Add(tabName);
+                    musicDic.Add(tabName, new LIST<music>());
                     // Chuyển đến tabPage mới
                     TabControlAlbum.SelectedTab = newTab;
+                    TabControlAlbum.Show();
                 }
             }
-            TabControlAlbum.Show();
         }
 
         private void TabControlAlbum_SelectedIndexChanged(object sender, EventArgs e)
@@ -455,6 +455,9 @@ namespace MusicPlayer
                 listBox.Items.Clear();
                 where = status.Curr;
                 btnDelete.Show();
+                btnAddFav.Show();
+                btnSortFav.Hide();
+                btnAddToAlbum.Show();
                 pos = 0;
                 for (int i = 0; i < musicCur.Count; i++)
                 {
@@ -467,9 +470,11 @@ namespace MusicPlayer
             {
                 listBox.Items.Clear();
                 panel6.Hide();
+                btnAddFav.Hide();
                 btnSortFav.Show();
                 where = status.Fav;
                 btnDelete.Hide();
+                btnAddToAlbum.Hide();
                 pos = 0;
                 for (int i = 0; i < musicFav.Count; i++)
                 {
@@ -483,8 +488,11 @@ namespace MusicPlayer
                 LIST<music> temp = musicDic[TabControlAlbum.SelectedTab.Text];
                 listBox.Items.Clear();
                 panel6.Hide();
+                btnSortFav.Hide();
                 where = status.Album;
                 btnDelete.Hide();
+                btnAddFav.Hide();
+                btnAddToAlbum.Hide();
                 pos = 0;
                 for (int i = 0; i < temp.Count; i++)
                 {
@@ -509,6 +517,27 @@ namespace MusicPlayer
                     TabControlAlbum.TabPages.Remove(TabControlAlbum.SelectedTab);
                     if (currentIndex > 0)
                         TabControlAlbum.SelectedTab = TabControlAlbum.TabPages[currentIndex - 1];
+                }
+            }
+        }
+
+        private void btnAddToAlbum_Click(object sender, EventArgs e)
+        {
+            if (AlbumName.Count > 0&&musicCur.Count>0)
+            {
+                using (Menu SelecteAlbum = new Menu(AlbumName.toArray()))
+                {
+                    if (SelecteAlbum.ShowDialog() == DialogResult.Yes)
+                    {
+                        string Selected = SelecteAlbum.SelectedAlbum;
+                        if (Selected != "")
+                        {
+                            if (musicDic[Selected].IndexOfItem(musicCur[pos]) == -1)
+                            {
+                                musicDic[Selected].Add(musicCur[pos]);
+                            }
+                        }
+                    }
                 }
             }
         }

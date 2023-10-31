@@ -1,6 +1,6 @@
 ﻿namespace MusicPlayer
 {
-    partial class TabName
+    partial class Menu
     {
         /// <summary>
         /// Required designer variable.
@@ -28,68 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxName = new System.Windows.Forms.TextBox();
-            this.btnAdd = new FontAwesome.Sharp.IconButton();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.btnExit = new FontAwesome.Sharp.IconButton();
             this.SuspendLayout();
             // 
-            // textBoxName
+            // listBox1
             // 
-            this.textBoxName.Location = new System.Drawing.Point(25, 26);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(244, 20);
-            this.textBoxName.TabIndex = 0;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdd.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.btnAdd.IconColor = System.Drawing.Color.Black;
-            this.btnAdd.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnAdd.Location = new System.Drawing.Point(104, 52);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 1;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.listBox1.BackColor = System.Drawing.Color.DarkGray;
+            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 17;
+            this.listBox1.Location = new System.Drawing.Point(0, 0);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(444, 249);
+            this.listBox1.TabIndex = 0;
+            this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
             // 
             // btnExit
             // 
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.IconChar = FontAwesome.Sharp.IconChar.None;
             this.btnExit.IconColor = System.Drawing.Color.Black;
             this.btnExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnExit.Location = new System.Drawing.Point(104, 113);
+            this.btnExit.Location = new System.Drawing.Point(369, 226);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
-            this.btnExit.TabIndex = 2;
+            this.btnExit.TabIndex = 1;
             this.btnExit.Text = "Thoát";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // TabName
+            // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.ClientSize = new System.Drawing.Size(281, 148);
+            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ClientSize = new System.Drawing.Size(444, 249);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.textBoxName);
+            this.Controls.Add(this.listBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "TabName";
+            this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "TabName";
+            this.Text = "Menu";
+            this.Load += new System.EventHandler(this.Menu_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxName;
-        private FontAwesome.Sharp.IconButton btnAdd;
+        private System.Windows.Forms.ListBox listBox1;
         private FontAwesome.Sharp.IconButton btnExit;
     }
 }

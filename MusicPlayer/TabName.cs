@@ -25,5 +25,11 @@ namespace MusicPlayer
             DialogResult = DialogResult.OK;
             this.Close();
         }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.No;
+            this.Close();
+        }
     }
 }

@@ -46,6 +46,7 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.TabControlAlbum = new System.Windows.Forms.TabControl();
             this.CurrListPage = new System.Windows.Forms.TabPage();
+            this.btnDeletePage = new FontAwesome.Sharp.IconButton();
             this.FavouritePage = new System.Windows.Forms.TabPage();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.listBox = new System.Windows.Forms.ListBox();
@@ -62,7 +63,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.btnDeletePage = new FontAwesome.Sharp.IconButton();
+            this.btnAddToAlbum = new FontAwesome.Sharp.IconButton();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -306,6 +307,24 @@
             this.CurrListPage.Text = "List Music";
             this.CurrListPage.UseVisualStyleBackColor = true;
             // 
+            // btnDeletePage
+            // 
+            this.btnDeletePage.BackColor = System.Drawing.Color.Silver;
+            this.btnDeletePage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDeletePage.FlatAppearance.BorderSize = 0;
+            this.btnDeletePage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeletePage.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnDeletePage.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
+            this.btnDeletePage.IconColor = System.Drawing.Color.Black;
+            this.btnDeletePage.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnDeletePage.Location = new System.Drawing.Point(851, 420);
+            this.btnDeletePage.Name = "btnDeletePage";
+            this.btnDeletePage.Size = new System.Drawing.Size(39, 54);
+            this.btnDeletePage.TabIndex = 10;
+            this.btnDeletePage.UseVisualStyleBackColor = false;
+            this.btnDeletePage.Visible = false;
+            this.btnDeletePage.Click += new System.EventHandler(this.btnDeletePage_Click);
+            // 
             // FavouritePage
             // 
             this.FavouritePage.Location = new System.Drawing.Point(4, 22);
@@ -341,6 +360,7 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.btnAddToAlbum);
             this.panel5.Controls.Add(this.btnDelete);
             this.panel5.Controls.Add(this.iconPictureBox2);
             this.panel5.Controls.Add(this.trackBar1);
@@ -485,23 +505,20 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // btnDeletePage
+            // btnAddToAlbum
             // 
-            this.btnDeletePage.BackColor = System.Drawing.Color.Silver;
-            this.btnDeletePage.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDeletePage.FlatAppearance.BorderSize = 0;
-            this.btnDeletePage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeletePage.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnDeletePage.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
-            this.btnDeletePage.IconColor = System.Drawing.Color.Black;
-            this.btnDeletePage.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnDeletePage.Location = new System.Drawing.Point(851, 420);
-            this.btnDeletePage.Name = "btnDeletePage";
-            this.btnDeletePage.Size = new System.Drawing.Size(39, 54);
-            this.btnDeletePage.TabIndex = 10;
-            this.btnDeletePage.UseVisualStyleBackColor = false;
-            this.btnDeletePage.Visible = false;
-            this.btnDeletePage.Click += new System.EventHandler(this.btnDeletePage_Click);
+            this.btnAddToAlbum.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddToAlbum.FlatAppearance.BorderSize = 0;
+            this.btnAddToAlbum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddToAlbum.IconChar = FontAwesome.Sharp.IconChar.Book;
+            this.btnAddToAlbum.IconColor = System.Drawing.Color.GreenYellow;
+            this.btnAddToAlbum.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnAddToAlbum.Location = new System.Drawing.Point(610, 24);
+            this.btnAddToAlbum.Name = "btnAddToAlbum";
+            this.btnAddToAlbum.Size = new System.Drawing.Size(36, 47);
+            this.btnAddToAlbum.TabIndex = 10;
+            this.btnAddToAlbum.UseVisualStyleBackColor = true;
+            this.btnAddToAlbum.Click += new System.EventHandler(this.btnAddToAlbum_Click);
             // 
             // Form1
             // 
@@ -568,6 +585,7 @@
         private System.Windows.Forms.TabPage FavouritePage;
         private FontAwesome.Sharp.IconButton btnSortFav;
         private FontAwesome.Sharp.IconButton btnDeletePage;
+        private FontAwesome.Sharp.IconButton btnAddToAlbum;
     }
 }
 

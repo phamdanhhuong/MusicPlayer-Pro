@@ -74,6 +74,10 @@ namespace MusicPlayer
             return arr.ToList();
         }
 
+        public T[] toArray()
+        {
+            return arr;
+        }
         /// <summary>
         /// Foreach
         /// </summary>
