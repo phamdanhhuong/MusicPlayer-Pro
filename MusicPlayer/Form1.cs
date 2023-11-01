@@ -33,6 +33,7 @@ namespace MusicPlayer
             TabControlAlbum.Hide();
             panelMedia.Hide();
             panel6.Hide();
+            btnAddToAlbum.Hide();
         }
         LIST <music> musicCur = new LIST<music>();
         LIST<music> musicFav = new LIST<music>();
@@ -228,13 +229,21 @@ namespace MusicPlayer
                     pos--;
                 play(musicCur, pos);
             }
-            else if(where == status.Search)
+            else if (where == status.Search)
             {
                 if (pos == 0)
                     pos = searchResult.Count - 1;
                 else if (pos > 0)
                     pos--;
                 play(searchResult, pos);
+            }
+            else if (where == status.Album)
+            {
+                if (pos == 0)
+                    pos = musicDic[TabControlAlbum.SelectedTab.Text].Count - 1;
+                else if (pos > 0)
+                    pos--;
+                play(musicDic[TabControlAlbum.SelectedTab.Text], pos);
             }
             update();
         }
@@ -267,6 +276,14 @@ namespace MusicPlayer
                 else
                     pos++;
                 play(searchResult, pos);
+            }
+            else if (where == status.Album)
+            {
+                if (pos == musicDic[TabControlAlbum.SelectedTab.Text].Count - 1)
+                    pos = 0;
+                else
+                    pos++;
+                play(musicDic[TabControlAlbum.SelectedTab.Text], pos);
             }
             update();
         }
@@ -360,7 +377,7 @@ namespace MusicPlayer
         {
 
             DialogResult = MessageBox.Show("Bạn có muốn xóa bài này", "Xóa", MessageBoxButtons.YesNo);
-            if (DialogResult == DialogResult.Yes)
+            if (DialogResult == DialogResult.Yes&& where==status.Curr)
             {
                 musicCur.Remove(musicCur[pos]);
                 listBox.Items.Clear();
@@ -373,6 +390,29 @@ namespace MusicPlayer
                 if (musicCur.Count>0)
                 {
                     play(musicCur, pos);
+                    axWindowsMediaPlayer1.Ctlcontrols.pause();
+                }
+                else
+                {
+                    axWindowsMediaPlayer1.Ctlcontrols.pause();
+                    label1.Text = "Music's name";
+                }
+                btnPlay.IconChar = FontAwesome.Sharp.IconChar.Play;
+                progressBar1.Value = 0;
+                btnDelete.Show();
+            }
+            else if(DialogResult == DialogResult.Yes && where == status.Album)
+            {
+                musicDic[TabControlAlbum.SelectedTab.Text].Remove(musicDic[TabControlAlbum.SelectedTab.Text][pos]);
+                listBox.Items.Clear();
+                where = status.Album;
+                for (int i = 0; i < musicDic[TabControlAlbum.SelectedTab.Text].Count; i++)
+                {
+                    listBox.Items.Add(musicDic[TabControlAlbum.SelectedTab.Text][i].Name);
+                }
+                if (musicDic[TabControlAlbum.SelectedTab.Text].Count > 0)
+                {
+                    play(musicDic[TabControlAlbum.SelectedTab.Text], pos);
                     axWindowsMediaPlayer1.Ctlcontrols.pause();
                 }
                 else
@@ -414,6 +454,7 @@ namespace MusicPlayer
             TabControlAlbum.SelectTab(CurrListPage);
             listBox.Items.Clear();
             btnDelete.Show();
+            btnAddToAlbum.Show();
             where = status.Curr;
             pos = 0;
             for (int i = 0; i < musicCur.Count; i++)
@@ -490,7 +531,7 @@ namespace MusicPlayer
                 panel6.Hide();
                 btnSortFav.Hide();
                 where = status.Album;
-                btnDelete.Hide();
+                btnDelete.Show();
                 btnAddFav.Hide();
                 btnAddToAlbum.Hide();
                 pos = 0;
