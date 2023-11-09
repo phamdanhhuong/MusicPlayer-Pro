@@ -49,7 +49,23 @@ namespace MusicPlayer
             Array.Resize(ref arr, arr.Length - 1);
             this.count = arr.Length;
         }
+        public void insert(int index, T item)
+        {
+            if (index < 0 || index > count)
+            {
+                throw new IndexOutOfRangeException();
+            }
 
+            Array.Resize(ref arr, arr.Length + 1);
+            this.count = arr.Length;
+
+            for (int i = count - 1; i > index; i--)
+            {
+                arr[i] = arr[i - 1];
+            }
+
+            arr[index] = item;
+        }
         public int IndexOfItem(T item)
         {
             for (int i = 0; i < count; i++)

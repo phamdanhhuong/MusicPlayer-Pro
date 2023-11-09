@@ -80,6 +80,7 @@
     <Compile Include="TabName.Designer.cs">
       <DependentUpon>TabName.cs</DependentUpon>
     </Compile>
+    <Compile Include="UpdateList.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -94,6 +95,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="TabName.resx">
       <DependentUpon>TabName.cs</DependentUpon>
@@ -130,6 +132,18 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictogrammers-Material-Repeat-off.512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictogrammers-Material-Repeat-variant.512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pictogrammers-Material-Repeat-variant.5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome-Repeat-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
